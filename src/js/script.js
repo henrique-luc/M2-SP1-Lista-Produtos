@@ -28,10 +28,17 @@ const montarListaProdutos = (listaProdutos) => {
 
 montarListaProdutos(produtos)
 
+const tagPrecoTotal = document.getElementById('precoTotal')
+
 const filtrarPorHortifruti = () => {
     const listaHortifruti = produtos.filter((produto) => {
         return produto.secao === 'Hortifruti'
     })
+    const valorTotal = listaHortifruti.reduce(function(soma, produto){
+        return soma + produto.preco
+    }, 0)
+    
+    tagPrecoTotal.innerHTML = valorTotal
 
     montarListaProdutos(listaHortifruti)
 }
@@ -40,6 +47,11 @@ const botaoMostrarHortifruti = document.querySelector('.estiloGeralBotoes--filtr
 botaoMostrarHortifruti.addEventListener('click', filtrarPorHortifruti)
 
 const mostrarTodos = () => {
+    const valorTotal = produtos.reduce(function(soma, produto){
+        return soma + produto.preco
+    }, 0)
+    
+    tagPrecoTotal.innerHTML = valorTotal
 
     return montarListaProdutos(produtos)
 
@@ -55,8 +67,12 @@ const buscarProdutos = () => {
    const buscaProdutos = produtos.filter((produto) => {
         return produto.nome.toLowerCase() === busca
     })
-    console.log(buscaProdutos)
 
+    const valorTotal = buscaProdutos.reduce(function(soma, produto){
+        return soma + produto.preco
+    }, 0)
+    
+    tagPrecoTotal.innerText = valorTotal
     montarListaProdutos(buscaProdutos)
     
 }
@@ -64,9 +80,4 @@ const buscarProdutos = () => {
 const botaoBusca = document.querySelector('.estiloGeralBotoes--botaoBuscaPorNome')
 botaoBusca.addEventListener('click', buscarProdutos)
 
-//const totalCarrinho = this.produtos.reduce(function(soma, produto){
-//
-//    return soma + produtos.preco
-//
-//}, 0)
 
